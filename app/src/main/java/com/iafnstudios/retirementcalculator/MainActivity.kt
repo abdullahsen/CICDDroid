@@ -3,6 +3,7 @@ package com.iafnstudios.retirementcalculator
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val currentAgeEditText = findViewById<EditText>(R.id.ageEditText)
         val retirementAgeEditText = findViewById<EditText>(R.id.retirementEditText)
         val currentSavingEditText = findViewById<EditText>(R.id.currentEditText)
+        val resultTextView = findViewById<TextView>(R.id.resultTextView)
 
         calculateButton.setOnClickListener {
             try {
@@ -47,6 +49,8 @@ class MainActivity : AppCompatActivity() {
                 if (retirementAge <= currentAge) {
                     Analytics.trackEvent("wrong_age", properties)
                 }
+
+                resultTextView.text = "At the current rate of $interestRate%, saving \$$montlySaving a month you will have \$X by $retirementAge."
             } catch (e: Exception) {
                 Analytics.trackEvent(e.toString())
             }
